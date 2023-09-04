@@ -32,20 +32,6 @@ def csv_from_json(keys, json_file):
     '''
 
 #    # Used for naming JSON file
-#    current_time = strftime('%d:%b:%Y-%H:%M:%S')
-#    current_date = strftime('%d-%b-%Y')
-#    
-#    try: # Checks to see if 'data' file has been created yet.
-#        os.mkdir('data')
-#    except FileExistsError:
-#        pass
-#
-#    path = 'data/{}'.format(current_date)
-#
-#    try: # Checks if the file for 'current_date' has been created or not.
-#        os.mkdir(path)
-#    except FileExistsError:
-#        pass
 
     with open(json_file) as json_data:
         data = json.load(json_data)
