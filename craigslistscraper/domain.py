@@ -27,11 +27,6 @@ def domain_builder(search, section, filters, cities):
     domain_section = section
     domain_search = '?query={}'.format(search)
 
-#    DATA_PATH = pkg_resources.resource_filename('craigslistscraper', 'city_data/cities_compile.csv')
-
-#    with open(DATA_PATH) as csv_file:
-#        cities = csv.reader(csv_file)
-
     for city in cities:
         domains.append('https://' + str(city) + '.craigslist.org/search/' + domain_section + domain_search + ''.join(filters))
 

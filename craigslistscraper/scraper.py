@@ -1,10 +1,7 @@
-from craigslistscraper import domain
-
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import json
-
 
 class CraigsListDivParser():
     def __init__(self, soup):
@@ -22,10 +19,54 @@ class CraigsListDivParser():
         return self.soup.find('a').get('href')
     
 class CraigsListAdParser():
-    def __init__(self, soup):
-        self.soup = soup
+    def __init__(self, url):
+        ad_page = requests.get(url)
+        self.soup = BeautifulSoup(ad_page.content, 'html.parser')
     
+    def post_details(self):
+        ad_info = self.soup.select('span')
+        data = []
+        details = []
 
+        for info in ad_info:  # only keep elements that don't have a 'class' or 'id' attribute
+            if not (info.has_attr('class') or info.has_attr('id')):
+                data.append(info)
+
+        for d in data:
+            details.append(d.text.split(': '))
+        
+        return details
+    
+    def post_description(self):
+        descs =[]
+        description_raw = self.soup.find_all(id='postingbody')
+
+        for item in description_raw:
+            unfiltered = item.get_text(strip=True)
+            descs.append(unfiltered.strip('QR Code Link to This Post'))
+        
+        return descs
+
+class CraigsListPost:
+    def __init__(self, div):
+        self.link = CraigsListDivParser(div).post_link()
+        self.detail = CraigsListAdParser(self.link).post_details()
+        self.description = CraigsListAdParser(self.link).post_description()
+        self.title = CraigsListDivParser(div).post_title()
+        self.price = CraigsListDivParser(div).post_price()
+
+    def pretty_print(self):
+        obj_dict = {
+            'title': self.title,
+            'price': self.price,
+            'link': self.link,
+            'detail': self.detail,
+            'description': self.description
+        }
+        
+        pretty_str = json.dumps(obj_dict, indent=4)
+        print(pretty_str)
+    
 class CraigslistSearches:
     """
     Object that pulls all relevent ad information and returns them
@@ -44,47 +85,11 @@ class CraigslistSearches:
         post_div_mp = {CraigsListDivParser(div).post_title(): div for div in divs}
         return list(post_div_mp.values())
 
-    def print_posting_info(self):  
+    def display(self):
         for div in self.divs:
-            print(CraigsListDivParser(div).post_title(), CraigsListDivParser(div).post_price(), CraigsListDivParser(div).post_link())
-
-    def posting_details(self): 
-        """
-        Retuns an array of all the Posting Details and Description in an array.
-        """
-
-        posting_details = []
-        description = []
-
-        for div in self.divs:
-            url = CraigsListDivParser(div).post_link()
-            
-            ad_page = requests.get(url)
-            soup = BeautifulSoup(ad_page.content, 'html.parser')
-
-            ad_info = soup.select('span')
-            data = []
-            unorganized_data_info = []
-
-            for info in ad_info:  # only keep elements that don't have a 'class' or 'id' attribute
-                if not (info.has_attr('class') or info.has_attr('id')):
-                    data.append(info)
-
-            for d in data:
-                unorganized_data_info.append(d.text.split(': '))
-            
-            description_raw = soup.find_all(id='postingbody')
-
-
-            for item in description_raw:
-                unfiltered = item.get_text(strip=True)
-                description.append(unfiltered.strip('QR Code Link to This Post'))
-            
-            posting_details.append(unorganized_data_info)
-
-        return posting_details, description
+            CraigsListPost(div).pretty_print()
     
-    def display(self):  
+    def pd_display(self):  
         """
         Displays data pulled from search in terminal, and 
         puts data into 'search_info.csv'.
