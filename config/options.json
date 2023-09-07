@@ -1,0 +1,64 @@
+{
+    "City": {
+        "type": "string"
+    },
+    "Item": {
+        "type": "string"
+    },
+    "SearchFilter": {
+        "type": "object",
+        "value":{
+            "hasPic": {
+                "value": 1,
+                "type": "boolean",
+                "allowed": [0, 1]
+            },
+            "min_price": {
+                "type": "number"
+            },
+            "max_price": {
+                "type": "number"
+            },
+            "postedToday": {
+                "value": 1,
+                "type": "boolean",
+                "allowed": [0, 1]
+            },
+            "purveyor": {
+                "type": "string",
+                "allowed": ["owner", "dealer"]
+            },
+            "srchType": {
+                "type": "string",
+                "allowed": ["T"]
+            },
+            "bundleDuplicates": {
+                "value": 1,
+                "type": "boolean",
+                "allowed": [0, 1]
+            },
+            "condition": {
+                "type": "number",
+                "allowed": [10, 20, 30, 40, 50, 60],
+                "notes": "10 = new, 20 = like new, 30 = excellent, 40 = good, 50 = fair, 60 = salvage"
+
+            },
+            "crypto_currency_ok": {
+                "type": "boolean",
+                "allowed": [0, 1]
+            },
+            "postal" : {
+                "type": "number"
+            },
+            "search_distance": {
+                "type": "number"
+            },
+            "auto_make_model": {
+                "type": "string"
+            }
+        }
+    },
+    "PostContentFilter" : {
+        "type": "object"
+    }
+}

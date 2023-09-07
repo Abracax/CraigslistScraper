@@ -1,0 +1,16 @@
+{
+    "City": "chicago",
+    "Item": "macbook",
+    "SearchFilter": {
+        "hasPic": 1,
+        "min_price": 20,
+        "max_price": 500,
+        "postedToday": 0,
+        "condition": 40,
+        "postal" : 60657,
+        "search_distance": 500
+    },
+    "PostContentFilter" :{
+        "notes": "TODO"
+    }
+}
