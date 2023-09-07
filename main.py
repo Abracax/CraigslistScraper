@@ -1,9 +1,10 @@
-from craigslistscraper import CraigsListSearchOptionParser, DomainBuilder, CraigslistSearches
+from craigslistscraper import UserConfigParser, DomainBuilder, CraigslistSearches
 
 def main():
     # TODO: Add Post detail filtering
-    cfp = CraigsListSearchOptionParser('./config/config.json')
-    db = DomainBuilder(cfp)
+    # TODO: Add Content Extraction
+    ucp = UserConfigParser('./config/config.json')
+    db = DomainBuilder(ucp)
     domain = db.build_domain()
     print(domain)
     SEARCH = CraigslistSearches(domain)

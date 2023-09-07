@@ -1,13 +1,13 @@
 {
-    "City": "chicago",
-    "Item": "macbook",
+    "City": "chambana",
+    "Item": "mac",
     "SearchFilter": {
         "hasPic": 1,
-        "min_price": 20,
+        "min_price": 30,
         "max_price": 500,
         "postedToday": 0,
         "condition": 40,
-        "postal" : 60657,
+        "postal" : 61820,
         "search_distance": 500
     },
     "PostContentFilter": {

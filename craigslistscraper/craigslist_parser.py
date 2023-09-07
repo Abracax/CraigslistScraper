@@ -27,7 +27,7 @@ class CraigsListAdParser():
         data = []
         details = []
 
-        for info in ad_info:  # only keep elements that don't have a 'class' or 'id' attribute
+        for info in ad_info:
             if not (info.has_attr('class') or info.has_attr('id')):
                 data.append(info)
 
@@ -42,7 +42,9 @@ class CraigsListAdParser():
 
         for item in description_raw:
             unfiltered = item.get_text(strip=True)
-            descs.append(unfiltered.strip('QR Code Link to This Post'))
+            desc = unfiltered.strip('QR Code Link to This Post')
+            desc.lower() 
+            descs.append(desc)
         
         return descs
 
