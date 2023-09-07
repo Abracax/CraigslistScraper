@@ -9,7 +9,6 @@ class UserConfigParser:
         self.options = read_config(CONFIG_OPTIONS)
         self.parsed_config = self.parse_user_filter()
         self.validate_city()
-        # TODO: validate item
     
     def validate_value(self, key, value, type, allowed, nested_type=None):
         if type == "object":
@@ -70,7 +69,6 @@ class UserConfigParser:
             nested_type = params.get('value_type', None)
             self.validate_value(key, value, type, allowed, nested_type)
             parsed_config[key] = value
-        print(parsed_config)
         return parsed_config
     
     def get_search_filters(self):

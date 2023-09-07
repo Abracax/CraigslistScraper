@@ -32,8 +32,9 @@ class CraigsListAdParser():
                 data.append(info)
 
         for d in data:
-            details.append(d.text.split(': '))
-        
+            detail = d.text.split(': ')
+            detail = [d.lower() for d in detail]
+            details.append(detail)
         return details
     
     def post_description(self):
@@ -43,10 +44,13 @@ class CraigsListAdParser():
         for item in description_raw:
             unfiltered = item.get_text(strip=True)
             desc = unfiltered.strip('QR Code Link to This Post')
-            desc.lower() 
+            desc = desc.lower() 
             descs.append(desc)
         
-        return descs
+        if not len(descs) == 1:
+            raise Exception('Description not found')
+        
+        return descs[0]
 
 class CraigsListPost:
     def __init__(self, div):

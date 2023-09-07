@@ -1,3 +1,2 @@
-from .scraper import CraigslistSearches
-from .domain_builder import DomainBuilder
-from .user_config_parser import UserConfigParser 
+from .scraper import CraigslistScraper
+from .craigslist_post import CraigsListPost

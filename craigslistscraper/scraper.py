@@ -1,25 +1,15 @@
-import requests
-from bs4 import BeautifulSoup
-from .craigslist_parser import CraigsListPost, CraigsListDivParser
+from .user_config_parser import UserConfigParser
+from .domain_builder import DomainBuilder
+from .craigslist_scraper import CraigslistSearches
 
-class CraigslistSearches:
-    """
-    Object that pulls all relevent ad information and returns them
-    in arrays to be parsed to a JSON file.
-    """
+class CraigslistScraper:
+    def __init__(self, userconf_path) -> None:
+        self.conf = userconf_path
 
-    def __init__(self, domain_get):
-        self.page = requests.get(domain_get)
-        self.soup = BeautifulSoup(self.page.content, 'html.parser')
-        self.divs = self.duplicate_title_filter(self.post_divs())
-    
-    def post_divs(self):
-        return self.soup.find_all(class_='cl-static-search-result')
-    
-    def duplicate_title_filter(self, divs):
-        post_div_mp = {CraigsListDivParser(div).post_title(): div for div in divs}
-        return list(post_div_mp.values())
-
-    def display(self):
-        for div in self.divs:
-            CraigsListPost(div).pretty_print()
+    def scrape(self):
+        ucp = UserConfigParser(self.conf)
+        domain = DomainBuilder(ucp).build_domain()
+        print(domain)
+        searcher = CraigslistSearches(domain, ucp)
+        searcher.display()
+        return searcher.posts 

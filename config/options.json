@@ -72,11 +72,11 @@
                 "type": "array",
                 "value_type": "string"
             },
-            "DetailMustHaveList":{
+            "DescriptionMustHaveList":{
                 "type": "array",
                 "value_type": "string"
             },
-            "DetailBlackList":{
+            "DescriptionBlackList":{
                 "type": "array",
                 "value_type": "string"
             }
