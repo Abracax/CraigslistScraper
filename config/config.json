@@ -10,7 +10,10 @@
         "postal" : 60657,
         "search_distance": 500
     },
-    "PostContentFilter" :{
-        "notes": "TODO"
+    "PostContentFilter": {
+        "TitleMustHaveList" : ["macbook", "mac book", "macbook pro", "macbook air", "mac book pro", "mac book air"],
+        "TitleBlackList" : ["case", "cover", "sleeve", "bag", "charger", "adapter", "power", "cord", "cable", "keyboard", "mouse", "trackpad", "dock", "hub", "stand", "protector", "film", "skin", "protector", "screen", "cover", "sleeve", "bag", "case", "adapter", "charger", "power", "cord", "cable", "keyboard", "mouse", "trackpad", "dock", "hub", "stand", "protector", "film", "skin", "protector", "screen"],
+        "DetailBlackList" : ["dead", "broken", "cracked", "damaged", "defective", "faulty", "not working"],
+        "DetailMustHaveList" : ["macbook", "mac book", "macbook pro", "macbook air", "mac book pro", "mac book air"]
     }
 }

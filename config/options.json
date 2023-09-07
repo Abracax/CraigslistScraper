@@ -1,17 +1,19 @@
 {
     "City": {
-        "type": "string"
+        "type": "string",
+        "notes": "Need to be in craigslist list of cities"
     },
     "Item": {
         "type": "string"
     },
     "SearchFilter": {
         "type": "object",
+        "notes" : "Each of these fields directly correspond to craigslist search filter parameters",
         "value":{
             "hasPic": {
-                "value": 1,
                 "type": "boolean",
-                "allowed": [0, 1]
+                "allowed": [0, 1],
+                "notes": "0 = no picture, 1 = has picture"
             },
             "min_price": {
                 "type": "number"
@@ -20,9 +22,9 @@
                 "type": "number"
             },
             "postedToday": {
-                "value": 1,
                 "type": "boolean",
-                "allowed": [0, 1]
+                "allowed": [0, 1],
+                "notes": "0 = all, 1 = posted today"
             },
             "purveyor": {
                 "type": "string",
@@ -30,18 +32,18 @@
             },
             "srchType": {
                 "type": "string",
-                "allowed": ["T"]
+                "allowed": ["T"],
+                "notes": "T = title only"
             },
             "bundleDuplicates": {
-                "value": 1,
                 "type": "boolean",
-                "allowed": [0, 1]
+                "allowed": [0, 1],
+                "notes": "0 = show all, 1 = bundle duplicates"
             },
             "condition": {
                 "type": "number",
                 "allowed": [10, 20, 30, 40, 50, 60],
                 "notes": "10 = new, 20 = like new, 30 = excellent, 40 = good, 50 = fair, 60 = salvage"
-
             },
             "crypto_currency_ok": {
                 "type": "boolean",
@@ -54,11 +56,47 @@
                 "type": "number"
             },
             "auto_make_model": {
-                "type": "string"
+                "type": "string",
+                "notes" : "See Craigslist make and model list for more info"
             }
         }
     },
     "PostContentFilter" : {
-        "type": "object"
+        "type": "object",
+        "value" : {
+            "TitleMustHaveList":{
+                "type": "array",
+                "value_type": "string"
+            },
+            "TitleBlackList":{
+                "type": "array",
+                "value_type": "string"
+            },
+            "DetailMustHaveList":{
+                "type": "array",
+                "value_type": "string"
+            },
+            "DetailBlackList":{
+                "type": "array",
+                "value_type": "string"
+            }
+        }
+    },
+    "KeywordExtraction" :{
+        "type": "object",
+        "value": {
+            "PaymentMethods":{
+                "type": "string",
+                "allowed": ["cash", "cryptocurrency", "paypal", "venmo", "zelle", "cashapp"]
+            },
+            "DeliveryMethods":{
+                "type": "string",
+                "allowed": ["pickup", "delivery", "shipping", "in person", "in-person"]
+            },
+            "Keywords":{
+                "type": "array",
+                "value_type": ["string"]
+            }
+        }
     }
 }

@@ -1,3 +1,3 @@
 from .scraper import CraigslistSearches
 from .domain_builder import DomainBuilder
-from .search_option_parser import CraigsListSearchOptionParser
+from .user_config_parser import UserConfigParser 
