@@ -2,4 +2,4 @@ include *.md
 
 include LICENSE
 
-include craigslistscraper/city_data/*.csv
+include craigslistscraper/data/*

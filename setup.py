@@ -7,15 +7,13 @@ here = pathlib.Path(__file__).parent.resolve()
 long_description = (here / 'README.md').read_text(encoding='utf-8')
 
 setup(
-    name='craigslistscraper',  
+    name='craigslistscraper',
     version='1.0.1',  
     description='Webscraper for Craigslist',  
     long_description=long_description,  
     long_description_content_type='text/markdown', 
-    url='https://github.com/ryanirl/CraigslistScraper',  
-    download_url='https://github.com/ryanirl/CraigslistScraper/archive/v1.0.1-beta.tar.gz',
-    author='Ryan Peters',
-    author_email='ryanirl@icloud.com',  
+    url='https://github.com/abracax/CraigslistScraper',  
+    author='Ryan Peters, Abracax',
 
     classifiers=[  
         'Development Status :: 2 - Pre-Alpha',
@@ -39,5 +37,5 @@ setup(
 
 #    data_files=[('city_data/cities_compile.csv', ['craigslistscraper/city_data/cities_compile.csv'])],
 
-    project_urls={'Source': 'https://github.com/ryanirl/CraigslistScraper'},
+    project_urls={'Source': 'https://github.com/abracax/CraigslistScraper'},
 )
