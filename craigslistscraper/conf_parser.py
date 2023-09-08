@@ -18,7 +18,7 @@ class UserConfigParser:
             filter = value
             for k, v in filter.items():
                 if k not in schema:
-                    raise ConfigValidationException(f"Unknown key: {k}")
+                    raise ConfigValidationException(k, v, f"Unknown key: {k}")
                 params = schema[k]
                 self.validate_value(k, v, params.get('type', None), params.get('allowed', None), params.get('value_type', None))
         if type == 'boolean':

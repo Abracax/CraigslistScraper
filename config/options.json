@@ -86,16 +86,24 @@
         "type": "object",
         "value": {
             "PaymentMethods":{
-                "type": "string",
-                "allowed": ["cash", "cryptocurrency", "paypal", "venmo", "zelle", "cashapp"]
+                "type": "array",
+                "value_type": "string"
             },
             "DeliveryMethods":{
-                "type": "string",
-                "allowed": ["pickup", "delivery", "shipping", "in person", "in-person"]
-            },
-            "Keywords":{
                 "type": "array",
-                "value_type": ["string"]
+                "value_type": "string"
+            },
+            "Specs":{
+                "type": "array",
+                "value_type": "string"
+            },
+            "NumberedSpecs":{
+                "type": "array",
+                "value_type": "string"
+            },
+            "Contact":{
+                "type": "array",
+                "value_type": "string"
             }
         }
     }

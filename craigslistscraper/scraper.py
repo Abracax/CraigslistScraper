@@ -1,4 +1,4 @@
-from .user_config_parser import UserConfigParser
+from .conf_parser import UserConfigParser
 from .domain_builder import DomainBuilder
 from .craigslist_scraper import CraigslistSearches
 

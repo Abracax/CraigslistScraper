@@ -1,4 +1,4 @@
-from .craigslist_parser import CraigsListPost
+from .craigslist_post import CraigsListPost
 
 class CraigslistPostFilterer:
     def __init__(self, posts, filters):

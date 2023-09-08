@@ -4,14 +4,14 @@
 
 CraigslistScraper is a web scraper for craigslist. Users define what they would
 like to search for then CraigslistScraper pulls ad data from their defined
-search and places it neatly inside of a JSON file.
+search and places it neatly inside of a JSON file. Users can filter out keywords and extract specs of the items.
 
 <!-- TABLE OF CONTENTS -->
-Table of Contents
+3# Table of Contents
+
 =================
 
 - [CraigslistScraper](#craigslistscraper)
-- [Table of Contents](#table-of-contents)
   - [Usage](#usage)
   - [License](#license)
 
@@ -37,6 +37,14 @@ Write a configuration similar to the example configuration at `config/config.jso
         "TitleBlackList" : ["case", "cover", "sleeve", "bag", "charger", "adapter", "screen"],
         "DescriptionBlackList" : ["dead", "broken", "cracked", "damaged", "faulty", "not working"],
         "DescriptionMustHaveList" : ["pro"]
+    },
+    "KeywordExtraction" : {
+        "NumberedSpecs" : [
+            "gb", "inch", "Ghz", "MHz"
+        ],
+        "Specs": [
+            "retina", "touch bar"
+        ]
     }
 }
 ```
@@ -72,6 +80,22 @@ Here is an example of the results:
         ]
     ],
     "description": "i have a macbook pro retina early 2013 for sale."
+}
+```
+
+Users can also filter for Specs, in which case the results are in this format:
+
+```json
+{
+    "title": "2011 MacBook Pro 13 $200 OBO",
+    "price": 200,
+    "link": "https://chicago.craigslist.org/sys/d/xxxx/yyyy.html",
+    "keywords": [
+        "16.0 gb",
+        "13.3 inch",
+        "2.8 ghz",
+        "1333.0 mhz"
+    ]
 }
 ```
 
