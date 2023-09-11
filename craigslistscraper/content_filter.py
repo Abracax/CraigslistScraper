@@ -21,8 +21,8 @@ class CraigslistPostContentFilterer:
         if filters is None:
             return None
         return all([
-            self.__apply_text_filters(post.title, filters.get('TitleMustHaveList', []), filters.get('TitleBlacklist', [])),
-            self.__apply_text_filters(post.description, filters.get('DescriptionMustHaveList', []), filters.get('DescriptionBlacklist', []))
+            self.__apply_text_filters(post.title, filters.get('TitleMustHaveList', []), filters.get('TitleBlackList', [])),
+            self.__apply_text_filters(post.description, filters.get('DescriptionMustHaveList', []), filters.get('DescriptionBlackList', []))
         ])
 
     def __filter_posts(self, posts, filters):
