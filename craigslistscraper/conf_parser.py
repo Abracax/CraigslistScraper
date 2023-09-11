@@ -1,26 +1,27 @@
 from .utils import ConfigValidationException
 from .utils import read_config, read_cities
+from .config import CONFIG_OPTIONS_PATH
+import functools
 
-CONFIG_OPTIONS = "config/options.json"
 
 class UserConfigParser:
     def __init__(self, filter):
-        self.filter = read_config(filter)
-        self.options = read_config(CONFIG_OPTIONS)
-        self.parsed_config = self.parse_user_filter()
-        self.validate_city()
+        self.__filter = read_config(filter)
+        self.__options = read_config(CONFIG_OPTIONS_PATH)
+        self.__parsed_config = self.__parse_user_filter()
+        self.__validate_city()
     
-    def validate_value(self, key, value, type, allowed, nested_type=None):
+    def __validate_value(self, key, value, type, allowed, nested_type=None):
         if type == "object":
             if not isinstance(value, dict):
                 raise ConfigValidationException(key, value, "object")
-            schema = self.options[key]['value']
+            schema = self.__options[key]['value']
             filter = value
             for k, v in filter.items():
                 if k not in schema:
                     raise ConfigValidationException(k, v, f"Unknown key: {k}")
                 params = schema[k]
-                self.validate_value(k, v, params.get('type', None), params.get('allowed', None), params.get('value_type', None))
+                self.__validate_value(k, v, params.get('type', None), params.get('allowed', None), params.get('value_type', None))
         if type == 'boolean':
             if not isinstance(value, int) or value not in [0, 1]:
                 raise ConfigValidationException(key, value, 'boolean', [0, 1])
@@ -48,40 +49,45 @@ class UserConfigParser:
             if value not in allowed:
                 raise ConfigValidationException(key, value, type, allowed)
     
-    def validate_city(self):
-        city = self.parsed_config.get('City', None)
+    def __validate_city(self):
+        city = self.__parsed_config.get('City', None)
         if city is None:
             raise ConfigValidationException('City', city, 'string', "See city.csv for a list of cities")
         city = city.lower()
-        self.parsed_config['City'] = city
+        self.__parsed_config['City'] = city
         if city not in read_cities():
             raise ConfigValidationException('City', city, 'string', "See city.csv for a list of cities")
 
-    def parse_user_filter(self):
+    def __parse_user_filter(self):
         parsed_config = {}
-        for key, value in self.filter.items():
-            if key not in self.options:
+        for key, value in self.__filter.items():
+            if key not in self.__options:
                 raise ConfigValidationException(key, value, f"Unknown key: {key}")
             
-            params = self.options[key]
+            params = self.__options[key]
             type = params.get('type', None)
             allowed = params.get('allowed', None)
             nested_type = params.get('value_type', None)
-            self.validate_value(key, value, type, allowed, nested_type)
+            self.__validate_value(key, value, type, allowed, nested_type)
             parsed_config[key] = value
         return parsed_config
     
-    def get_search_filters(self):
-        return self.parsed_config.get('SearchFilter', None)
+    @property
+    def search_filters(self):
+        return self.__parsed_config.get('SearchFilter', None)
     
-    def get_item(self):
-        return self.parsed_config.get('Item', None)
+    @property
+    def item(self):
+        return self.__parsed_config.get('Item', None)
     
-    def get_city(self):
-        return self.parsed_config.get('City', None)
+    @property
+    def city(self):
+        return self.__parsed_config.get('City', None)
     
-    def get_post_content_filters(self):
-        return self.parsed_config.get('PostContentFilter', None)
+    @property
+    def post_content_filters(self):
+        return self.__parsed_config.get('PostContentFilter', None)
     
-    def get_keyword_extraction(self):
-        return self.parsed_config.get('KeywordExtraction', None)
+    @property
+    def keyword_extraction(self):
+        return self.__parsed_config.get('KeywordExtraction', None)

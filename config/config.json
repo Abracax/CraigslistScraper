@@ -18,8 +18,8 @@
     },
     "KeywordExtraction" : {
         "NumberedSpecs" : [
-            "gb", "gigabyte", "gigabytes",
-            "inch", "Ghz", "MHz"
+            "Gb", "gigabyte", "gigabytes",
+            "inch", "\"","Ghz", "MHz"
         ],
         "Specs": [
             "retina", "touch bar", "touchbar",

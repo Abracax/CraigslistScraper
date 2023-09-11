@@ -3,26 +3,29 @@ from bs4 import BeautifulSoup
 
 class CraigsListDivParser():
     def __init__(self, soup):
-        self.soup = soup
+        self.__soup = soup
     
+    @property
     def post_title(self):
-        return self.soup.attrs['title']    
+        return self.__soup.attrs['title']    
     
+    @property
     def post_price(self):
-        raw_price = self.soup.find(class_='price').get_text()
+        raw_price = self.__soup.find(class_='price').get_text()
         price_number = int(raw_price.replace('$', '').replace(',', ''))
         return price_number
 
+    @property
     def post_link(self):
-        return self.soup.find('a').get('href')
+        return self.__soup.find('a').get('href')
     
 class CraigsListAdParser():
     def __init__(self, url):
-        ad_page = requests.get(url)
-        self.soup = BeautifulSoup(ad_page.content, 'html.parser')
-    
+        self.__soup = BeautifulSoup(requests.get(url).content, 'html.parser')
+
+    @property
     def post_details(self):
-        ad_info = self.soup.select('span')
+        ad_info = self.__soup.select('span')
         data = []
         details = []
 
@@ -36,9 +39,10 @@ class CraigsListAdParser():
             details.append(detail)
         return details
     
+    @property
     def post_description(self):
         descs =[]
-        description_raw = self.soup.find_all(id='postingbody')
+        description_raw = self.__soup.find_all(id='postingbody')
 
         for item in description_raw:
             unfiltered = item.get_text(strip=True)
@@ -47,6 +51,6 @@ class CraigsListAdParser():
             descs.append(desc)
         
         if not len(descs) == 1:
-            raise Exception('Description not found')
+            return ""
         
         return descs[0]
